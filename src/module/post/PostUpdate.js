@@ -29,6 +29,7 @@ const PostUpdate = () => {
   });
   useEffect(() => {
     async function fetchData() {
+      if (!postId) return;
       const colRef = doc(db, "posts", postId);
       const dataDoc = await getDoc(colRef);
       setPostImage(dataDoc.data().image);

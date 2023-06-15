@@ -32,6 +32,7 @@ const ThreadPost = () => {
   });
 
   useEffect(() => {
+    if (!userInfor?.uid) return;
     async function fetchData() {
       const colRef = doc(db, "users", userInfor?.uid);
       const dataDoc = await getDoc(colRef);
@@ -41,6 +42,7 @@ const ThreadPost = () => {
   }, [userInfor?.uid]);
 
   useEffect(() => {
+    if (!postId) return;
     async function fetchData() {
       const colRef = doc(db, "posts", postId);
       const dataDoc = await getDoc(colRef);
@@ -69,7 +71,6 @@ const ThreadPost = () => {
     const dataDoc = await getDoc(colRef);
     setComment(dataDoc.data()?.comments);
   };
-  console.log(post);
   return (
     <>
       <div className="flex py-3 px-4 hover:bg-slate-100 border-b border-neutral-200">

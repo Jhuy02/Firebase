@@ -31,6 +31,7 @@ const ModuleUpdate = ({ toggle }) => {
   const [params] = useSearchParams();
   const userId = params.get("id");
   useEffect(() => {
+    if (!userId) return;
     async function fetchData() {
       const colRef = doc(db, "users", userId);
       const dataDoc = await getDoc(colRef);

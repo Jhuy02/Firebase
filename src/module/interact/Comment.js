@@ -9,10 +9,29 @@ import useToggle from "../../hooks/useToggle";
 import ModuleUpdatepost from "../update/ModuleUpdatepost";
 import IconDost from "../../components/icons/IconDost";
 import { useAuth } from "../../contexts/auth-context";
+import { useState } from "react";
+import { useEffect } from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../firebase-app/firebase-config";
 
 const Comment = ({ data }) => {
-  const navigate = useNavigate();
   const { userInfor } = useAuth();
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    async function fetchUserData() {
+      if (!data?.user?.email) return;
+      const q = query(
+        collection(db, "users"),
+        where("email", "==", data?.user?.email)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        setUser(doc.data());
+      });
+    }
+    fetchUserData();
+  }, [data?.user?.email]);
+  const navigate = useNavigate();
   const [isToggled, toggle] = useToggle(false);
   const currentTime = moment().format("HH");
   const currentDay = moment().format("YYYY-MM-DD");
@@ -20,7 +39,7 @@ const Comment = ({ data }) => {
   const calcHour = currentTime - data.dateHour;
   return (
     <div className="flex mt-4 last:mb-5">
-      <PostAvt data={data?.user}></PostAvt>
+      <PostAvt data={user}></PostAvt>
       <div className="flex-1">
         <div className="flex justify-between">
           <div className="flex">
@@ -33,7 +52,7 @@ const Comment = ({ data }) => {
                   tabIndex="-1"
                   {...attrs}
                 >
-                  <TippyAccount data={data?.user}></TippyAccount>
+                  <TippyAccount data={user}></TippyAccount>
                 </div>
               )}
             >

@@ -7,6 +7,7 @@ import { useState } from "react";
 const PostAvt = ({ data }) => {
   const [user, setUser] = useState("");
   useEffect(() => {
+    if (!data?.id) return;
     async function fetchData() {
       const colRef = doc(db, "users", data?.id);
       const dataDoc = await getDoc(colRef);
@@ -17,7 +18,11 @@ const PostAvt = ({ data }) => {
   return (
     <div className="w-12 h-12 mx-2 rounded-full object-cover">
       <img
-        src={user?.imageUser?.imageAvt || "/user-avt.png"}
+        src={
+          user?.imageUser?.imageAvt ||
+          data?.imageUser?.imageAvt ||
+          "/user-avt.png"
+        }
         alt=""
         className="w-full h-full rounded-full object-cover"
       />
