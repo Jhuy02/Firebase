@@ -134,7 +134,7 @@ const ModuleUpdate = ({ toggle }) => {
               style={{ position: "absolute" }}
               className={"bottom-0 right-0 m-auto z-[99]"}
             ></ImageUpload>
-            {imageUser.imageAvt && (
+            {imageUser?.imageAvt && (
               <button
                 type="button"
                 className="absolute bottom-0 left-0 z-10 flex items-center justify-center transition-all rounded-full cursor-pointer hover:bg-slate-100"

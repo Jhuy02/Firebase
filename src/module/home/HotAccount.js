@@ -25,7 +25,6 @@ const HotAccount = () => {
     }
     fetchUserData();
   }, [cout]);
-  console.log(users);
   if (users?.length <= 0) return null;
   return (
     <div className="hot-account">

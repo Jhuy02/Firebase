@@ -60,8 +60,6 @@ const HeaderSearch = () => {
     });
   }, [filter]);
 
-  console.log(searchResult);
-
   const handleInputFilter = debounce((e) => {
     setFilter(e.target.value);
   }, 500);

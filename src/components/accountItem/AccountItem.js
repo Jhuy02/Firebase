@@ -5,7 +5,6 @@ import TippyAccount from "./TippyAccount";
 import IconCheck from "../icons/IconCheck";
 
 const AccountItem = ({ data }) => {
-  console.log(data?.id);
   const navigate = useNavigate();
   return (
     <Tippy

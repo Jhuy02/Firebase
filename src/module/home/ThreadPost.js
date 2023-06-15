@@ -44,7 +44,7 @@ const ThreadPost = () => {
     async function fetchData() {
       const colRef = doc(db, "posts", postId);
       const dataDoc = await getDoc(colRef);
-      setComment(dataDoc.data().comments);
+      setComment(dataDoc.data()?.comments);
       setPost(dataDoc.data());
     }
     fetchData();
@@ -136,9 +136,10 @@ const ThreadPost = () => {
         </div>
       </div>
       <Label>Bình Luận:</Label>
-      {comment.map((data, index) => (
-        <Comment key={index} data={data}></Comment>
-      ))}
+      {comment &&
+        comment.map((data, index) => (
+          <Comment key={index} data={data}></Comment>
+        ))}
     </>
   );
 };
