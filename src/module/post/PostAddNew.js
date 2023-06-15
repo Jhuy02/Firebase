@@ -137,7 +137,7 @@ const PostAddNew = () => {
         day,
         timestamp: new Date(),
         likes: "",
-        comment: "",
+        comments: "",
         image,
         userId: userInfor.uid,
         tagId: "",

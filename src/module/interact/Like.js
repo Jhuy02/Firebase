@@ -5,11 +5,13 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase-app/firebase-config";
 import IconLike from "../../components/icons/IconLike";
 import IconUnlike from "../../components/icons/IconUnLike";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Like = ({ data }) => {
   const { userInfor } = useAuth();
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const idPost = params.get("id");
   if (!data) return null;
 
   const handleLike = async (postId, likes) => {
@@ -17,7 +19,8 @@ const Like = ({ data }) => {
       navigate("/sign-up");
       return;
     }
-    const colRef = doc(db, "posts", postId);
+    const id = postId ? postId : idPost;
+    const colRef = doc(db, "posts", id);
     if (likes === 0) {
       await updateDoc(colRef, {
         likes: [userInfor.uid],

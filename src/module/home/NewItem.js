@@ -12,6 +12,7 @@ import ModuleUpdatepost from "../update/ModuleUpdatepost";
 import Like from "../interact/Like";
 
 const NewItem = ({ data }) => {
+  console.log(data);
   const { userInfor } = useAuth();
   const [isToggled, toggle] = useToggle(false);
   const navigate = useNavigate();

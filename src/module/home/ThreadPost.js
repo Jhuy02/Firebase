@@ -56,17 +56,20 @@ const ThreadPost = () => {
     const dateHour = moment().format("HH");
     const cloneValues = {
       user: user,
-      comment: values.comments,
+      comment: values?.comments,
       day,
       dateHour,
     };
+    // const cmt = post?.comment
     await updateDoc(colRef, {
       comments: [...post?.comments, cloneValues],
     });
     reset({ comment: "" });
     toast.success("Thành Công");
+    const dataDoc = await getDoc(colRef);
+    setComment(dataDoc.data()?.comments);
   };
-
+  console.log(post);
   return (
     <>
       <div className="flex py-3 px-4 hover:bg-slate-100 border-b border-neutral-200">
