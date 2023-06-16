@@ -53,6 +53,9 @@ const ThreadPost = () => {
   }, [postId]);
 
   const handleUpdate = async (values) => {
+    console.log(postId);
+    console.log(values);
+
     const colRef = doc(db, "posts", postId);
     const day = moment().format("YYYY-MM-DD");
     const dateHour = moment().format("HH");
@@ -62,10 +65,17 @@ const ThreadPost = () => {
       day,
       dateHour,
     };
-    // const cmt = post?.comment
-    await updateDoc(colRef, {
-      comments: [...post?.comments, cloneValues],
-    });
+    console.log(cloneValues);
+    console.log(post?.comments);
+    if (post?.comments) {
+      await updateDoc(colRef, {
+        comments: [...post?.comments, cloneValues],
+      });
+    } else {
+      await updateDoc(colRef, {
+        comments: [cloneValues],
+      });
+    }
     reset({ comment: "" });
     toast.success("Thành Công");
     const dataDoc = await getDoc(colRef);
